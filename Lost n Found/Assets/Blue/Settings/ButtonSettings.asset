@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31e91b6fe41380146b6b70d548161534, type: 3}
+  m_Script: {fileID: 11500000, guid: fde6ee011af886c4d8f2cddd73d1d4fb, type: 3}
   m_Name: ButtonSettings
   m_EditorClassIdentifier: 
-  HoverFadeTime: 1
-  ClickFadeTime: 0.1
-  ClickDelay: 0.2
-  HoverColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+  FadeDuration: 0.1
+  ClickDelay: 0.1
+  NormalColor: {r: 1, g: 1, b: 1, a: 1}
+  HoverColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   ClickColor: {r: 0, g: 0, b: 0, a: 1}
