@@ -6,22 +6,33 @@ using Unity.Services;
 using Unity.Services.Core;
 using System;
 using System.Threading.Tasks;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 
 public class NetworkConnectionData
 {
-    public Action<Exception> FailedAction;
+    public Action<Exception> OnConnectionError;
+
+    bool signedIn = false;
     public NetworkConnectionData()
     {
-        FailedAction += FailedActionMethod;
+        OnConnectionError += ConnectionError;
     }
-    private void FailedActionMethod(Exception ex)
+    private void ConnectionError(Exception ex)
     {
         Debug.LogWarning(ex);
     }
 
     public async Task<bool> AuthenticatePlayer(){
         
-        Debug.Log("Authentitacating");
+        if (signedIn)
+        {
+            return true;
+        }
+
+        signedIn = true;
+
+        Debug.Log("Authenticating");
 
         var options = new InitializationOptions();
 
@@ -34,7 +45,7 @@ public class NetworkConnectionData
         }
         catch (Exception ex)
         {
-            FailedAction.Invoke(ex);
+            OnConnectionError.Invoke(ex);
             return false;
         }
 
@@ -44,11 +55,26 @@ public class NetworkConnectionData
         }
         catch (Exception ex)
         {
-            FailedAction.Invoke(ex);
+            OnConnectionError.Invoke(ex);
             return false;
         }
 
-        Debug.Log("Finsihed");
         return true;
+    }
+
+    public async void JoinRandom() {
+
+        Lobby lobby;
+
+        Debug.Log("Joining Lobby");
+
+        try
+        {
+            lobby = await Lobbies.Instance.QuickJoinLobbyAsync(); 
+        }
+        catch (System.Exception ex)
+        {
+            OnConnectionError.Invoke(ex);
+        }
     }
 }

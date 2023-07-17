@@ -17,8 +17,15 @@ public class BasicButton : ButtonBehaviour
     }
     protected override void OnClick()
     {
-        showMenu.SetActive(true);
-        hideMenu.SetActive(false);
+        if (showMenu != null)
+        {
+            showMenu.SetActive(true);
+        }
+        
+        if (hideMenu != null)
+        {
+            hideMenu.SetActive(false);
+        }
 
         ButtonsFrozen = false;
     }

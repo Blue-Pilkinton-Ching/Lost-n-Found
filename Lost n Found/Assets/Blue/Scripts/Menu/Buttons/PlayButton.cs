@@ -11,11 +11,13 @@ public class PlayButton : BasicButton
     {
         bool result = await networkConnectionData.AuthenticatePlayer();
 
-        ButtonsFrozen = false;
-
         if (result)
         {
             base.OnClick();
+        }
+        else
+        {
+            ButtonsFrozen = false;
         }
     }
 
