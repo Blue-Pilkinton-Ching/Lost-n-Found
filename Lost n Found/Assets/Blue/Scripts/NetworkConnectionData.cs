@@ -41,7 +41,6 @@ public class NetworkConnectionData
         try
         {
             await UnityServices.InitializeAsync(options);
-            Debug.Log("Authenticated Player");
         }
         catch (Exception ex)
         {
@@ -62,7 +61,7 @@ public class NetworkConnectionData
         return true;
     }
 
-    public async void JoinRandom() {
+    public async Task<bool> JoinRandom() {
 
         Lobby lobby;
 
@@ -75,6 +74,9 @@ public class NetworkConnectionData
         catch (System.Exception ex)
         {
             OnConnectionError.Invoke(ex);
+            return false;
         }
+
+        return true;
     }
 }

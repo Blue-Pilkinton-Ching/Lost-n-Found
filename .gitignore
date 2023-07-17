@@ -10,6 +10,8 @@ Lost n Found/[Bb]uilds/
 Lost n Found/[Ll]ogs/
 Lost n Found/[Mm]emoryCaptures/
 
+Lost n Found_clone_0/
+
 # Never ignore Asset meta data
 !Lost n Found/[Aa]ssets/**/*.meta
 
@@ -23,7 +25,11 @@ Lost n Found/[Mm]emoryCaptures/
 [Aa]ssets/Plugins/Editor/JetBrains*
 
 # Visual Studio cache directory
-.vs/
+Lost n Found/.vs/
+Lost n Found/.vscode/
+
+Lost n Found_clone_0/.vs/
+Lost n Found_clone_0/.vscode/
 
 # Gradle cache directory
 .gradle/
