@@ -5,6 +5,6 @@ public class MenuInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<NetworkConnectionData>().AsSingle().NonLazy();
+        Container.Bind<NetworkConnectionData>().FromNew().AsSingle().NonLazy();
     }
 }

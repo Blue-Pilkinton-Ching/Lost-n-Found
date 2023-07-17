@@ -12,11 +12,14 @@ public class BasicButton : ButtonBehaviour
 
     protected override void Awake()
     {
-        freezeButtons = true;
+        base.Awake();
+        shouldFreezeButtons = true;
     }
     protected override void OnClick()
     {
         showMenu.SetActive(true);
         hideMenu.SetActive(false);
+
+        ButtonsFrozen = false;
     }
 }

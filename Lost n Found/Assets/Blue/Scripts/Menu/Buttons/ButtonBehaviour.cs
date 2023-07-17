@@ -9,9 +9,13 @@ using Zenject;
 [RequireComponent(typeof(Button))]
 public abstract class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
+
+    // Any button class that inherits from this, can set 'shouldFreezeButtons' inside the Awake method, to freeze the buttons until ButtonsFrozen is set to false
+
+
     public static bool ButtonsFrozen {get; protected set;} = false;
 
-    protected bool freezeButtons = false;
+    protected bool shouldFreezeButtons = false;
 
     Button button;
     ButtonSettingsInstaller buttonSettings;
@@ -39,7 +43,7 @@ public abstract class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPo
             button.image.DOColor(buttonSettings.ClickColor, buttonSettings.FadeDuration).OnComplete(() =>
                 button.image.DOColor(buttonSettings.NormalColor, buttonSettings.FadeDuration));
 
-            if (freezeButtons)
+            if (shouldFreezeButtons)
             {
                 ButtonsFrozen = true;
             }
@@ -55,6 +59,6 @@ public abstract class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPo
             button.image.DOColor(buttonSettings.NormalColor, buttonSettings.FadeDuration);
         }
     }
-
+    
     protected abstract void OnClick();
 }

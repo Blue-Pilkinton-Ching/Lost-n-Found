@@ -6,6 +6,7 @@ public class QuitButton : ButtonBehaviour
 {
     protected override void OnClick()
     {
+        base.Awake();
         Debug.Log("Quit!");
         Application.Quit();
     }

@@ -20,14 +20,17 @@ public class NetworkConnectionData
     }
 
     public async Task<bool> AuthenticatePlayer(){
+        
+        Debug.Log("Authentitacating");
 
         var options = new InitializationOptions();
 
-        options.SetProfile(new Guid().ToString());
+        options.SetProfile(UnityEngine.Random.Range(int.MinValue, int.MaxValue).ToString());
 
         try
         {
             await UnityServices.InitializeAsync(options);
+            Debug.Log("Authenticated Player");
         }
         catch (Exception ex)
         {
@@ -44,6 +47,8 @@ public class NetworkConnectionData
             FailedAction.Invoke(ex);
             return false;
         }
+
+        Debug.Log("Finsihed");
         return true;
     }
 }
