@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using System.Threading.Tasks;
 
-public class PlayButton : BasicButton
+public class JoinRandomButton : BasicButton
 {
     NetworkHelper networkConnectionData;
+
+    [Inject]
+    public void Construct(NetworkHelper networkConnectionData){
+        this.networkConnectionData = networkConnectionData;
+    }
     protected override async void OnClick()
     {
-        bool result = await networkConnectionData.AuthenticatePlayer();
+        bool result = await networkConnectionData.JoinRandom();
 
         if (result)
         {
@@ -19,10 +23,5 @@ public class PlayButton : BasicButton
         {
             ButtonsFrozen = false;
         }
-    }
-
-    [Inject]
-    public void Construct(NetworkHelper networkConnectionData){
-        this.networkConnectionData = networkConnectionData;
     }
 }

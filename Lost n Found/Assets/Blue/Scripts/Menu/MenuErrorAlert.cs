@@ -6,12 +6,12 @@ using TMPro;
 
 public class MenuErrorAlert : MonoBehaviour
 {
-    NetworkConnectionData networkConnectionData;
+    NetworkHelper networkConnectionData;
     public TextMeshProUGUI ErrorText;
     public GameObject ErrorObject;
 
     [Inject]
-    private void Construct(NetworkConnectionData networkConnectionData){
+    private void Construct(NetworkHelper networkConnectionData){
         this.networkConnectionData = networkConnectionData;
     }
 
