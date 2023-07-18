@@ -12,6 +12,7 @@ using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using Zenject;
 
 public class NetworkHelper
 {
@@ -24,6 +25,8 @@ public class NetworkHelper
     bool signedIn = false;
 
     UnityTransport transport;
+
+    [Inject]
     public NetworkHelper(UnityTransport transport)
     {
         this.transport = transport;
@@ -74,7 +77,16 @@ public class NetworkHelper
     }
 
     public async Task<bool> JoinRandom() {
+        return await JoinAsClient(true);
+    }
 
+    public async Task<bool> JoinByCode(string code)
+    {
+        return await JoinAsClient(false, code);
+    }
+
+    private async Task<bool> JoinAsClient(bool random, string code = "")
+    {
         if (Lobby != null)
         {
             Debug.Log("Leaving Current Lobby");
@@ -94,7 +106,14 @@ public class NetworkHelper
 
         try
         {
-            Lobby = await Lobbies.Instance.QuickJoinLobbyAsync(); 
+            if (random)
+            {
+                Lobby = await Lobbies.Instance.QuickJoinLobbyAsync();
+            }
+            else
+            {
+                Lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(code);
+            }
         }
         catch (System.Exception ex)
         {
@@ -114,11 +133,11 @@ public class NetworkHelper
             return false;
         }
 
-        transport.SetClientRelayData(RelayJoinAllocation.RelayServer.IpV4, 
-            (ushort)RelayJoinAllocation.RelayServer.Port, 
-            RelayJoinAllocation.AllocationIdBytes, 
-            RelayJoinAllocation.Key, 
-            RelayJoinAllocation.ConnectionData, 
+        transport.SetClientRelayData(RelayJoinAllocation.RelayServer.IpV4,
+            (ushort)RelayJoinAllocation.RelayServer.Port,
+            RelayJoinAllocation.AllocationIdBytes,
+            RelayJoinAllocation.Key,
+            RelayJoinAllocation.ConnectionData,
             RelayJoinAllocation.HostConnectionData);
 
         return true;
@@ -179,6 +198,10 @@ public class NetworkHelper
             RelayAllocation.AllocationIdBytes, 
             RelayAllocation.Key, 
             RelayAllocation.ConnectionData);
+
+        Debug.Log("Starting Host");
+
+        NetworkManager.Singleton.StartHost();
 
         return true;
     }

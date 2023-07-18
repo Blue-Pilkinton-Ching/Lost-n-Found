@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using TMPro;
 
 public class JoinCodeButton : BasicButton
 {
     NetworkHelper networkConnectionData;
 
     [SerializeField]
-    private VisibilityButton visibilityButton;
+    private TMP_InputField InputField;
 
     [Inject]
     public void Construct(NetworkHelper networkConnectionData)
@@ -18,7 +19,7 @@ public class JoinCodeButton : BasicButton
 
     protected override async void OnClick()
     {
-        bool result = await networkConnectionData.Host(visibilityButton.IsPrivate);
+        bool result = await networkConnectionData.JoinByCode(InputField.text);
 
         if (result)
         {
