@@ -12,27 +12,27 @@ using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
-using Zenject;
 
-public class NetworkHelper
+public class NetworkHelper : MonoBehaviour
 {
     public Action<Exception> OnConnectionError;
-
     public Lobby Lobby {get; private set;} = null;
     public Allocation RelayAllocation {get; private set;} = null;
     public JoinAllocation RelayJoinAllocation {get; private set;} = null;
 
     bool signedIn = false;
 
-    UnityTransport transport;
-
-    [Inject]
-    public NetworkHelper(UnityTransport transport)
+    private void OnClientConnected(ulong id)
     {
-        this.transport = transport;
+        Debug.Log("Client: " + id.ToString() + " Connected!");
 
-        OnConnectionError += ConnectionError;
+        if (NetworkManager.Singleton.IsServer)
+        {
+            GameObject go = Instantiate(DependencyHolder.Singleton.NetworkedClientManager.gameObject);
+            go.GetComponent<NetworkObject>().SpawnWithOwnership(id);
+        }
     }
+
     private void ConnectionError(Exception ex)
     {
         Debug.LogWarning(ex);
@@ -133,12 +133,14 @@ public class NetworkHelper
             return false;
         }
 
-        transport.SetClientRelayData(RelayJoinAllocation.RelayServer.IpV4,
+        DependencyHolder.Singleton.UnityTransport.SetClientRelayData(RelayJoinAllocation.RelayServer.IpV4,
             (ushort)RelayJoinAllocation.RelayServer.Port,
             RelayJoinAllocation.AllocationIdBytes,
             RelayJoinAllocation.Key,
             RelayJoinAllocation.ConnectionData,
             RelayJoinAllocation.HostConnectionData);
+
+        NetworkManager.Singleton.StartClient();
 
         return true;
     }
@@ -193,13 +195,11 @@ public class NetworkHelper
 
         Debug.Log("Lobby Code: " + Lobby.LobbyCode);
 
-        transport.SetHostRelayData(RelayAllocation.RelayServer.IpV4, 
+        DependencyHolder.Singleton.UnityTransport.SetHostRelayData(RelayAllocation.RelayServer.IpV4, 
             (ushort)RelayAllocation.RelayServer.Port, 
             RelayAllocation.AllocationIdBytes, 
             RelayAllocation.Key, 
             RelayAllocation.ConnectionData);
-
-        Debug.Log("Starting Host");
 
         NetworkManager.Singleton.StartHost();
 
