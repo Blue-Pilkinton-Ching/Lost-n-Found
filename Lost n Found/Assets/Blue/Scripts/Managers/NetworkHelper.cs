@@ -12,6 +12,7 @@ using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using Unity.Services.Vivox;
 
 public class NetworkHelper : MonoBehaviour
 {
@@ -20,15 +21,22 @@ public class NetworkHelper : MonoBehaviour
     public Allocation RelayAllocation {get; private set;} = null;
     public JoinAllocation RelayJoinAllocation {get; private set;} = null;
 
+    [SerializeField] private NetworkedClientManager networkedClientManagerPrefab;
+
     bool signedIn = false;
 
+    private void Awake() {
+        DontDestroyOnLoad(this);
+
+        DependencyHolder.Singleton.NetworkManager.OnClientConnectedCallback += OnClientConnected;
+    }
     private void OnClientConnected(ulong id)
     {
         Debug.Log("Client: " + id.ToString() + " Connected!");
 
         if (NetworkManager.Singleton.IsServer)
         {
-            GameObject go = Instantiate(DependencyHolder.Singleton.NetworkedClientManager.gameObject);
+            GameObject go = Instantiate(networkedClientManagerPrefab.gameObject);
             go.GetComponent<NetworkObject>().SpawnWithOwnership(id);
         }
     }

@@ -8,6 +8,7 @@ public class PlayButton : BasicButton
     protected override async void OnClick()
     {
         bool result = await DependencyHolder.Singleton.NetworkHelper.AuthenticatePlayer();
+        DependencyHolder.Singleton.VivoxManager.Initialize();
 
         if (result)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class JoinCodeButton : BasicButton
+public class EnterJoinCodeButton : BasicButton
 {
     [SerializeField]
     private TMP_InputField InputField;
