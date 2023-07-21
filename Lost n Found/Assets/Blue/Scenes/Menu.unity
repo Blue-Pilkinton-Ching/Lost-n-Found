@@ -1148,6 +1148,8 @@ MonoBehaviour:
     type: 2}
   <ButtonSettings>k__BackingField: {fileID: 11400000, guid: 192fa1bd216a3374a92418a9b8fb43aa,
     type: 2}
+  <VivoxCredentials>k__BackingField: {fileID: 11400000, guid: 1441680b6dd2e4243aa39845a359753c,
+    type: 2}
   <OwnerUsernameText>k__BackingField: {fileID: 1876911485}
   <PartnerUsernameText>k__BackingField: {fileID: 1314166572}
 --- !u!4 &289539732

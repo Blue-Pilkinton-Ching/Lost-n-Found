@@ -29,6 +29,7 @@ public class DependencyHolder : MonoBehaviour
     [field: Header("Settings")]
     [field: SerializeField] public SharedKeys SharedKeys { get; private set; }
     [field: SerializeField] public ButtonSettings ButtonSettings { get; private set; }
+    [field: SerializeField] public VivoxCredentials VivoxCredentials { get; private set; }
 
 
     [field: Header("Instantiated Component References")]
