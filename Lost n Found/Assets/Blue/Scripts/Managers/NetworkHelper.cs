@@ -59,8 +59,12 @@ public class NetworkHelper : MonoBehaviour
 
         var options = new InitializationOptions();
 
-        options.SetProfile(UnityEngine.Random.Range(int.MinValue, int.MaxValue).ToString());
+        // Uncomment this line of production
+        //options.SetProfile("Profile");
 
+        // Comment this line of production
+        options.SetProfile(UnityEngine.Random.Range(int.MinValue, int.MaxValue).ToString());
+        
         try
         {
             await UnityServices.InitializeAsync(options);
