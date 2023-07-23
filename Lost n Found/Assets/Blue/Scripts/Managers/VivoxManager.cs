@@ -10,8 +10,9 @@ using Unity.Services.Authentication;
 
 public class VivoxManager : MonoBehaviour
 {
-    public bool LoggedIn {get; private set;}
-    public Action OnLoggedIntoVivox;
+    public bool ReadyToJoinVivoxChannel {get; private set;}
+    bool joinNewChannelWhenReady = false;
+    string channelName;
     TimeSpan expirationTime = TimeSpan.FromSeconds(90);
     VivoxUnity.Client client;
     ILoginSession loginSession;
@@ -74,26 +75,36 @@ public class VivoxManager : MonoBehaviour
             case LoginState.LoggingIn:
                 Debug.Log("Logging into Vivox");
                 break;
+
             case LoginState.LoggedIn:
-
                 Debug.Log("Logged into Vivox");
+                ReadyToJoinVivoxChannel = true;
 
-                JoinChannel("balls");
-
-                try
-                {
-                    OnLoggedIntoVivox.Invoke();
-                } catch { }
-                
                 break;
         }
     }
 
-    public void JoinChannel(string channelName) 
+    public void JoinChannelWhenReady(string channelName) 
+    {
+        LeaveChannel();
+        joinNewChannelWhenReady = true;
+        this.channelName = channelName;
+        TryJoinVivoxChannel();
+    }
+    private void TryJoinVivoxChannel() 
+    {
+        if (joinNewChannelWhenReady & ReadyToJoinVivoxChannel)
+        {
+            JoinChannel();
+        }
+        joinNewChannelWhenReady = false;
+    }
+
+    private void JoinChannel() 
     {
         channelId = new ChannelId(DependencyHolder.Singleton.VivoxCredentials.Issuer, 
             channelName, DependencyHolder.Singleton.VivoxCredentials.Domain,
-            ChannelType.Echo);
+            ChannelType.NonPositional);
 
         channelSession = loginSession.GetChannelSession(channelId);
 
@@ -102,12 +113,6 @@ public class VivoxManager : MonoBehaviour
             callback => JoinChannelCallback(callback));
 
         channelSession.PropertyChanged += ChannelPropertyChanged;
-    }
-
-    public void LeaveChannel() 
-    {
-        channelSession.Disconnect();
-        loginSession.DeleteChannelSession(channelId);
     }
 
     private void JoinChannelCallback(IAsyncResult result)
@@ -132,26 +137,36 @@ public class VivoxManager : MonoBehaviour
 
         switch (source.AudioState)
         {
+            case ConnectionState.Disconnected:
+                Debug.Log("Disconnected from Vivox Channel " + source.Channel.Name);
+
+                ReadyToJoinVivoxChannel = true;
+                TryJoinVivoxChannel();
+                break;
+                
             case ConnectionState.Disconnecting:
                 Debug.Log("Disconnecting from Vivox Channel " + source.Channel.Name);
                 break;
-            case ConnectionState.Disconnected:
-                Debug.Log("Disconnected from Vivox Channel " + source.Channel.Name);
-                break;
+
             case ConnectionState.Connecting:
                 Debug.Log("Connecting into Vivox Channel " + source.Channel.Name);
                 break;
+
             case ConnectionState.Connected:
 
                 Debug.Log("Connected into Vivox Channel " + source.Channel.Name);
 
-                try
-                {
-                    OnLoggedIntoVivox.Invoke();
-                }
-                catch { }
-
+                ReadyToJoinVivoxChannel = false;
                 break;
         }
+    }
+    public void LeaveChannel() 
+    {
+        try
+        {
+            channelSession.Disconnect();
+            loginSession.DeleteChannelSession(channelId);
+        }
+        catch{}
     }
 }

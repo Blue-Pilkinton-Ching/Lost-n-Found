@@ -23,6 +23,9 @@ public class NetworkHelper : MonoBehaviour
 
     [SerializeField] private NetworkedClientManager networkedClientManagerPrefab;
 
+    string joinCodeID = "JoinCode";
+    string guidID = "GUID";
+
     bool signedIn = false;
 
     private void Awake() {
@@ -30,6 +33,7 @@ public class NetworkHelper : MonoBehaviour
 
         DependencyHolder.Singleton.NetworkManager.OnClientConnectedCallback += OnClientConnected;
     }
+
     private void OnClientConnected(ulong id)
     {
         Debug.Log("Client: " + id.ToString() + " Connected!");
@@ -137,7 +141,7 @@ public class NetworkHelper : MonoBehaviour
 
         try
         {
-            RelayJoinAllocation = await RelayService.Instance.JoinAllocationAsync(Lobby.Data["JoinCode"].Value);
+            RelayJoinAllocation = await RelayService.Instance.JoinAllocationAsync(Lobby.Data[joinCodeID].Value);
         }
         catch (System.Exception ex)
         {
@@ -151,6 +155,8 @@ public class NetworkHelper : MonoBehaviour
             RelayJoinAllocation.Key,
             RelayJoinAllocation.ConnectionData,
             RelayJoinAllocation.HostConnectionData);
+
+        JoinNewVivoxChannel();
 
         NetworkManager.Singleton.StartClient();
 
@@ -189,7 +195,8 @@ public class NetworkHelper : MonoBehaviour
         CreateLobbyOptions options = new CreateLobbyOptions();
 
         Dictionary<string, DataObject> lobbyOptionsData = new();
-        lobbyOptionsData.Add("JoinCode", new DataObject(visibility: DataObject.VisibilityOptions.Public, value: joinCode));
+        lobbyOptionsData.Add(joinCodeID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: joinCode));
+        lobbyOptionsData.Add(guidID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: Guid.NewGuid().ToString()));
         options.Data = lobbyOptionsData;
         options.IsPrivate = isPrivate;
 
@@ -213,11 +220,17 @@ public class NetworkHelper : MonoBehaviour
             RelayAllocation.Key, 
             RelayAllocation.ConnectionData);
 
+
+        JoinNewVivoxChannel();
+
         NetworkManager.Singleton.StartHost();
 
         return true;
     }
-
+    private void JoinNewVivoxChannel() 
+    {
+        DependencyHolder.Singleton.VivoxManager.JoinChannelWhenReady(Lobby.Data[guidID].Value);
+    }
     IEnumerator LobbyHeartBeat()
     {
         while (true)
