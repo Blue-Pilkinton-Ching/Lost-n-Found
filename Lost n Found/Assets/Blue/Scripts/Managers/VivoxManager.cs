@@ -48,6 +48,8 @@ public class VivoxManager : MonoBehaviour
             loginSession.GetLoginToken(DependencyHolder.Singleton.VivoxCredentials.TolkenKey, expirationTime), 
             LoginSessionCallback);
 
+        loginSession.SetTransmissionMode(TransmissionMode.All);
+
         loginSession.PropertyChanged += LoginPropertyChanged;
     }
 
@@ -79,6 +81,7 @@ public class VivoxManager : MonoBehaviour
             case LoginState.LoggedIn:
                 Debug.Log("Logged into Vivox");
                 ReadyToJoinVivoxChannel = true;
+                TryJoinVivoxChannel();
 
                 break;
         }
@@ -96,8 +99,8 @@ public class VivoxManager : MonoBehaviour
         if (joinNewChannelWhenReady & ReadyToJoinVivoxChannel)
         {
             JoinChannel();
+            joinNewChannelWhenReady = false;
         }
-        joinNewChannelWhenReady = false;
     }
 
     private void JoinChannel() 
@@ -108,7 +111,7 @@ public class VivoxManager : MonoBehaviour
 
         channelSession = loginSession.GetChannelSession(channelId);
 
-        channelSession.BeginConnect(true, false, true, 
+        channelSession.BeginConnect(true, false, false, 
             channelSession.GetConnectToken(DependencyHolder.Singleton.VivoxCredentials.TolkenKey, expirationTime), 
             callback => JoinChannelCallback(callback));
 
