@@ -25,7 +25,8 @@ public class NetworkHelper : MonoBehaviour
 
     string joinCodeID = "JoinCode";
     string guidID = "GUID";
-
+    string seedID = "Seed";
+    string difficultyID = "Difficulty";
     bool signedIn = false;
 
     private void Awake() {
@@ -156,6 +157,10 @@ public class NetworkHelper : MonoBehaviour
             RelayJoinAllocation.ConnectionData,
             RelayJoinAllocation.HostConnectionData);
 
+        DependencyHolder.Singleton.SetGameSettings(
+            new GameSettings(Enum.Parse<GameSettings.DifficultyOptions>(Lobby.Data[difficultyID].Value), 
+            int.Parse(Lobby.Data[seedID].Value)));
+
         JoinNewVivoxChannel();
 
         NetworkManager.Singleton.StartClient();
@@ -165,7 +170,8 @@ public class NetworkHelper : MonoBehaviour
 
     public async Task<bool> Host(bool isPrivate)
     {
-
+        DependencyHolder.Singleton.SetGameSettings(new GameSettings(GameSettings.DifficultyOptions.Normal, UnityEngine.Random.Range(int.MinValue, int.MaxValue)));
+        
         Debug.Log("Creating Relay Allocation");
 
         try
@@ -195,6 +201,8 @@ public class NetworkHelper : MonoBehaviour
         CreateLobbyOptions options = new CreateLobbyOptions();
 
         Dictionary<string, DataObject> lobbyOptionsData = new();
+        lobbyOptionsData.Add(seedID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Difficulty.ToString()));
+        lobbyOptionsData.Add(difficultyID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Seed.ToString()));
         lobbyOptionsData.Add(joinCodeID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: joinCode));
         lobbyOptionsData.Add(guidID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: Guid.NewGuid().ToString()));
         options.Data = lobbyOptionsData;

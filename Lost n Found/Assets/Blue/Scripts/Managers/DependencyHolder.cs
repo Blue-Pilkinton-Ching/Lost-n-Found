@@ -20,6 +20,8 @@ public class DependencyHolder : MonoBehaviour
     [field: SerializeField] public GameLoader GameManager { get; private set; }
     [field: SerializeField] public VivoxManager VivoxManager { get; private set; }
     [field: SerializeField] public AudioDeviceManager AudioDeviceManager { get; private set; }
+    
+    public GameSettings GameSettings { get; private set; }
 
     [field: Header("Instantiated Managers & Controllers")]
     public NetworkedClientManager OwnerClientManager { get; private set; }
@@ -40,6 +42,10 @@ public class DependencyHolder : MonoBehaviour
     {
         Singleton = this;
         DontDestroyOnLoad(this);
+    }
+    public void SetGameSettings(GameSettings GameSettings)
+    {
+        this.GameSettings = GameSettings;
     }
     public void SetOwnerClientManager(NetworkedClientManager instance) 
     {
