@@ -157,6 +157,8 @@ public class NetworkHelper : MonoBehaviour
             RelayJoinAllocation.ConnectionData,
             RelayJoinAllocation.HostConnectionData);
 
+        Debug.Log(Lobby.Data[difficultyID].Value);
+
         DependencyHolder.Singleton.SetGameSettings(
             new GameSettings(Enum.Parse<GameSettings.DifficultyOptions>(Lobby.Data[difficultyID].Value), 
             int.Parse(Lobby.Data[seedID].Value)));
@@ -201,8 +203,8 @@ public class NetworkHelper : MonoBehaviour
         CreateLobbyOptions options = new CreateLobbyOptions();
 
         Dictionary<string, DataObject> lobbyOptionsData = new();
-        lobbyOptionsData.Add(seedID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Difficulty.ToString()));
-        lobbyOptionsData.Add(difficultyID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Seed.ToString()));
+        lobbyOptionsData.Add(difficultyID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Difficulty.ToString()));
+        lobbyOptionsData.Add(seedID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Seed.ToString()));
         lobbyOptionsData.Add(joinCodeID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: joinCode));
         lobbyOptionsData.Add(guidID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: Guid.NewGuid().ToString()));
         options.Data = lobbyOptionsData;

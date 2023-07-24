@@ -1440,7 +1440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a286e80143e80a4c9bbdab732a1d2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showMenu: {fileID: 1843396287}
+  showMenu: {fileID: 780587439}
   hideMenu: {fileID: 1370828036}
 --- !u!1 &448234643
 GameObject:
@@ -6652,12 +6652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee33ce19b25dc341bd30ed213626fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1843396287 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 18449359279593332, guid: 670775c36b0798e4899837134e59c43f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5398721114408735652}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1843396288 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8261173064909183563, guid: 670775c36b0798e4899837134e59c43f,
