@@ -23,7 +23,6 @@ public class LobbyButton : ButtonBehaviour
             DependencyHolder.Singleton.PartnerClientManager.Ready.OnValueChanged += PartnerReadyStatusChanged;
         }
     }
-
     private void PartnerReadyStatusChanged(bool previous, bool current) 
     {
         UpdateButton(false);

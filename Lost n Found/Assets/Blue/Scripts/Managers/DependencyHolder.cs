@@ -19,6 +19,7 @@ public class DependencyHolder : MonoBehaviour
     [field: SerializeField] public UnityTransport UnityTransport { get; private set; }
     [field: SerializeField] public GameLoader GameManager { get; private set; }
     [field: SerializeField] public VivoxManager VivoxManager { get; private set; }
+    [field: SerializeField] public AudioDeviceManager AudioDeviceManager { get; private set; }
 
     [field: Header("Instantiated Managers & Controllers")]
     public NetworkedClientManager OwnerClientManager { get; private set; }

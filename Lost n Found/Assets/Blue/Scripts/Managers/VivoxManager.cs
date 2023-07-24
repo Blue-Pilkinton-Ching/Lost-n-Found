@@ -7,11 +7,13 @@ using System;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Unity.Services.Authentication;
+using System.Linq;
 
 public class VivoxManager : MonoBehaviour
 {
-    public bool ReadyToJoinVivoxChannel {get; private set;}
+    bool readyToJoinVivoxChannel = false;
     bool joinNewChannelWhenReady = false;
+    bool clientInitialized = false;
     string channelName;
     TimeSpan expirationTime = TimeSpan.FromSeconds(90);
     VivoxUnity.Client client;
@@ -21,10 +23,8 @@ public class VivoxManager : MonoBehaviour
     ChannelId channelId;
     private void Awake() {
         DontDestroyOnLoad(this);
-    }
 
-    private void OnApplicationQuit() {
-        client.Uninitialize();
+        DependencyHolder.Singleton.AudioDeviceManager.OnCurrentMicChanged += OnMicrophoneChanged;
     }
     public void Initialize() 
     {
@@ -33,6 +33,8 @@ public class VivoxManager : MonoBehaviour
         client = new Client();
         client.Uninitialize();
         client.Initialize();
+
+        clientInitialized = true;
 
         accountId = new AccountId(
             DependencyHolder.Singleton.VivoxCredentials.Issuer, 
@@ -51,6 +53,44 @@ public class VivoxManager : MonoBehaviour
         loginSession.SetTransmissionMode(TransmissionMode.All);
 
         loginSession.PropertyChanged += LoginPropertyChanged;
+    }
+    private void MicrophoneChangedCallback(IAsyncResult result)
+    {
+        try
+        {
+            client.AudioOutputDevices.EndSetActiveDevice(result);
+        }
+        catch
+        {
+            Debug.LogError("Failed to Change Microphone");
+            throw;
+        }
+    }
+    private void OnMicrophoneChanged()
+    {
+        SetMicrophone();
+    }
+
+    private void SetMicrophone() 
+    {
+        if (!clientInitialized)
+        {
+            return;
+        }
+
+        VivoxUnity.IReadOnlyDictionary<string, IAudioDevice> devices = client.AudioInputDevices.AvailableDevices;
+
+        client.AudioInputDevices.BeginSetActiveDevice(
+            devices.First(n => n.Name == DependencyHolder.Singleton.AudioDeviceManager.CurrentMicName), 
+            callback => MicrophoneChangedCallback(callback));
+    }
+
+    private void OnApplicationQuit() {
+        try
+        {
+            client.Uninitialize();
+        }
+        catch {}
     }
 
     private void LoginSessionCallback(IAsyncResult result) 
@@ -80,7 +120,9 @@ public class VivoxManager : MonoBehaviour
 
             case LoginState.LoggedIn:
                 Debug.Log("Logged into Vivox");
-                ReadyToJoinVivoxChannel = true;
+                readyToJoinVivoxChannel = true;
+
+                SetMicrophone();
                 TryJoinVivoxChannel();
 
                 break;
@@ -96,7 +138,7 @@ public class VivoxManager : MonoBehaviour
     }
     private void TryJoinVivoxChannel() 
     {
-        if (joinNewChannelWhenReady & ReadyToJoinVivoxChannel)
+        if (joinNewChannelWhenReady & readyToJoinVivoxChannel)
         {
             JoinChannel();
             joinNewChannelWhenReady = false;
@@ -143,7 +185,7 @@ public class VivoxManager : MonoBehaviour
             case ConnectionState.Disconnected:
                 Debug.Log("Disconnected from Vivox Channel " + source.Channel.Name);
 
-                ReadyToJoinVivoxChannel = true;
+                readyToJoinVivoxChannel = true;
                 TryJoinVivoxChannel();
                 break;
                 
@@ -159,7 +201,7 @@ public class VivoxManager : MonoBehaviour
 
                 Debug.Log("Connected into Vivox Channel " + source.Channel.Name);
 
-                ReadyToJoinVivoxChannel = false;
+                readyToJoinVivoxChannel = false;
                 break;
         }
     }
