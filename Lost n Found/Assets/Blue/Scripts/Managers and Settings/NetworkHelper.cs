@@ -157,8 +157,6 @@ public class NetworkHelper : MonoBehaviour
             RelayJoinAllocation.ConnectionData,
             RelayJoinAllocation.HostConnectionData);
 
-        Debug.Log(Lobby.Data[difficultyID].Value);
-
         DependencyHolder.Singleton.SetGameSettings(
             new GameSettings(Enum.Parse<GameSettings.DifficultyOptions>(Lobby.Data[difficultyID].Value), 
             int.Parse(Lobby.Data[seedID].Value)));

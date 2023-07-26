@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IHeadBobber
 {
     #region Vars
 
