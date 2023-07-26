@@ -9,7 +9,7 @@ public class EnterJoinCodeButton : BasicButton
     private TMP_InputField InputField;
     protected override async void OnClick()
     {
-        bool result = await DependencyHolder.Singleton.NetworkHelper.JoinByCode(InputField.text);
+        bool result = await MainDependencies.Singleton.NetworkHelper.JoinByCode(InputField.text);
 
         if (result)
         {

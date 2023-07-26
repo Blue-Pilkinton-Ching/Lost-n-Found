@@ -27,13 +27,13 @@ public class NetworkedClientManager : NetworkBehaviour
     {
         if (IsOwner)
         {
-            Username.Value = PlayerPrefs.GetString(DependencyHolder.Singleton.SharedKeys.UsernameSaveKey, "Noobie" + UnityEngine.Random.Range(0, 1000));
-            DependencyHolder.Singleton.SetOwnerClientManager(this);
+            Username.Value = PlayerPrefs.GetString(MainDependencies.Singleton.SharedKeys.UsernameSaveKey, "Noobie" + UnityEngine.Random.Range(0, 1000));
+            MainDependencies.Singleton.SetOwnerClientManager(this);
         }
         else
         {
             UpdateUsername();
-            DependencyHolder.Singleton.SetPartnerClientManager(this);
+            MainDependencies.Singleton.SetPartnerClientManager(this);
         }
     }
 
@@ -45,12 +45,12 @@ public class NetworkedClientManager : NetworkBehaviour
     private void UpdateUsername() {
         if (IsOwner)
         {
-            TextMeshProUGUI text = DependencyHolder.Singleton.OwnerUsernameText;
+            TextMeshProUGUI text = MainDependencies.Singleton.OwnerUsernameText;
             text.text = Username.Value.ToString();
         }
         else
         {
-            TextMeshProUGUI text = DependencyHolder.Singleton.PartnerUsernameText;
+            TextMeshProUGUI text = MainDependencies.Singleton.PartnerUsernameText;
             text.text = Username.Value.ToString();
         }
     }

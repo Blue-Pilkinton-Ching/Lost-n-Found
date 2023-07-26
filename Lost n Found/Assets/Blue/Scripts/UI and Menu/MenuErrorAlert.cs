@@ -9,7 +9,7 @@ public class MenuErrorAlert : MonoBehaviour
     public GameObject ErrorObject;
 
     private void Awake() {
-        DependencyHolder.Singleton.NetworkHelper.OnConnectionError += OnConnectionError;
+        MainDependencies.Singleton.NetworkHelper.OnConnectionError += OnConnectionError;
     }
 
     private void OnConnectionError(System.Exception ex){

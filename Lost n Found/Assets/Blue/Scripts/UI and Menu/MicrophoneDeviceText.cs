@@ -9,11 +9,11 @@ public class MicrophoneDeviceText : MonoBehaviour
     private void Awake()
     {
         text = GetComponent<TextMeshProUGUI>();
-        DependencyHolder.Singleton.AudioDeviceManager.OnCurrentMicChanged += CurrentMicChanged;
+        MainDependencies.Singleton.AudioDeviceManager.OnCurrentMicChanged += CurrentMicChanged;
     }
 
     private void CurrentMicChanged() 
     {
-        text.text = DependencyHolder.Singleton.AudioDeviceManager.CurrentMicName;
+        text.text = MainDependencies.Singleton.AudioDeviceManager.CurrentMicName;
     }
 }

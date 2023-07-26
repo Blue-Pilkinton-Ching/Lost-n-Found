@@ -14,7 +14,7 @@ public class GameLoader : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
     private void Awake() {
-        DependencyHolder.Singleton.NetworkManager.OnServerStarted += OnServerStarted;
+        MainDependencies.Singleton.NetworkManager.OnServerStarted += OnServerStarted;
     }
     private void OnServerStarted() 
     {
@@ -24,7 +24,7 @@ public class GameLoader : MonoBehaviour
     public void StartGame() 
     {
         DOTween.KillAll();
-        NetworkManager.Singleton.SceneManager.LoadScene(DependencyHolder.Singleton.SharedKeys.OrphangeSceneName, LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene(MainDependencies.Singleton.SharedKeys.OrphangeSceneName, LoadSceneMode.Single);
     }
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)  
     {
@@ -34,7 +34,7 @@ public class GameLoader : MonoBehaviour
             return;
         }
 
-        if (sceneName == DependencyHolder.Singleton.SharedKeys.OrphangeSceneName && clientsCompleted.Count == 2)
+        if (sceneName == MainDependencies.Singleton.SharedKeys.OrphangeSceneName && clientsCompleted.Count == 2)
         {
             Debug.Log("All Clients succesfully connected to " + sceneName + " scene");
 
@@ -42,10 +42,10 @@ public class GameLoader : MonoBehaviour
             entity.GetComponent<NetworkObject>().Spawn();
 
             GameObject ownerPlayer = Instantiate(playerPrefab);
-            ownerPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(DependencyHolder.Singleton.OwnerClientManager.OwnerClientId);
+            ownerPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(MainDependencies.Singleton.OwnerClientManager.OwnerClientId);
 
             GameObject partnerPlayer = Instantiate(playerPrefab);
-            partnerPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(DependencyHolder.Singleton.PartnerClientManager.OwnerClientId);
+            partnerPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(MainDependencies.Singleton.PartnerClientManager.OwnerClientId);
         }
     }
 }

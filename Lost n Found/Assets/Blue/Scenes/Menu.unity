@@ -1142,7 +1142,7 @@ MonoBehaviour:
   <NetworkManager>k__BackingField: {fileID: 4781933}
   <NetworkHelper>k__BackingField: {fileID: 1911006536}
   <UnityTransport>k__BackingField: {fileID: 4781932}
-  <GameManager>k__BackingField: {fileID: 2108792384}
+  <GameLoader>k__BackingField: {fileID: 2108792384}
   <VivoxManager>k__BackingField: {fileID: 1414067088}
   <AudioDeviceManager>k__BackingField: {fileID: 1614882556}
   <SharedKeys>k__BackingField: {fileID: 11400000, guid: 079875ff6bf32004c9abefd0ecfed2ac,
@@ -1150,6 +1150,8 @@ MonoBehaviour:
   <ButtonSettings>k__BackingField: {fileID: 11400000, guid: 192fa1bd216a3374a92418a9b8fb43aa,
     type: 2}
   <VivoxCredentials>k__BackingField: {fileID: 11400000, guid: 1441680b6dd2e4243aa39845a359753c,
+    type: 2}
+  <HeadBobSettings>k__BackingField: {fileID: 11400000, guid: 97a8b7a2c45af394aa5b991acd2f7963,
     type: 2}
   <OwnerUsernameText>k__BackingField: {fileID: 1876911485}
   <PartnerUsernameText>k__BackingField: {fileID: 1314166572}

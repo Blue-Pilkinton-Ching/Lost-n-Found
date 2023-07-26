@@ -6,7 +6,7 @@ public class SettingsButton : BasicButton
 {
     protected override void OnClick()
     {
-        DependencyHolder.Singleton.OwnerClientManager.SetReadyStatus(false);
+        MainDependencies.Singleton.OwnerClientManager.SetReadyStatus(false);
         base.OnClick();
     }
 }

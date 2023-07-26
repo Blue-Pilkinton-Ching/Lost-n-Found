@@ -5,22 +5,22 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using TMPro;
 using System;
+using Cinemachine;
 
-public class DependencyHolder : MonoBehaviour
+public class MainDependencies : MonoBehaviour
 {
     // Class that holds all Managers and Dependancies for easy accessibility
     // This class should ONLY hold dependencys for other classes, and not contain any functionality
 
-    public static DependencyHolder Singleton;
+    public static MainDependencies Singleton;
 
     [field: Header("Managers & Controllers")]
     [field: SerializeField] public NetworkManager NetworkManager { get; private set; }
     [field: SerializeField] public NetworkHelper NetworkHelper { get; private set; }
     [field: SerializeField] public UnityTransport UnityTransport { get; private set; }
-    [field: SerializeField] public GameLoader GameManager { get; private set; }
+    [field: SerializeField] public GameLoader GameLoader { get; private set; }
     [field: SerializeField] public VivoxManager VivoxManager { get; private set; }
     [field: SerializeField] public AudioDeviceManager AudioDeviceManager { get; private set; }
-    
     public GameSettings GameSettings { get; private set; }
 
     [field: Header("Instantiated Managers & Controllers")]
@@ -33,11 +33,13 @@ public class DependencyHolder : MonoBehaviour
     [field: SerializeField] public SharedKeys SharedKeys { get; private set; }
     [field: SerializeField] public ButtonSettings ButtonSettings { get; private set; }
     [field: SerializeField] public VivoxCredentials VivoxCredentials { get; private set; }
+    [field: SerializeField] public HeadBobSettings HeadBobSettings { get; private set; }
 
 
     [field: Header("Instantiated Component References")]
     [field: SerializeField] public TextMeshProUGUI OwnerUsernameText { get; private set; }
     [field: SerializeField] public TextMeshProUGUI PartnerUsernameText { get; private set; }
+
     public void Awake()
     {
         Singleton = this;

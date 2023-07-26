@@ -27,9 +27,11 @@ Lost n Found_clone_0/
 # Visual Studio cache directory
 Lost n Found/.vs/
 Lost n Found/.vscode/
+Lost n Found/.VSCodeCounter/
 
 Lost n Found_clone_0/.vs/
 Lost n Found_clone_0/.vscode/
+Lost n Found_clone_0/.VSCodeCounter/
 
 # Gradle cache directory
 .gradle/

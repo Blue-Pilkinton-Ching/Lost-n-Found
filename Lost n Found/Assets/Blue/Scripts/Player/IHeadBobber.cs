@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IHeadBobber
 {
-    
+    float GetMovementSpeed();
+    float GetMaxMovementSpeed();
 }

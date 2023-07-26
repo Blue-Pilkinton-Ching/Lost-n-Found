@@ -14,7 +14,7 @@ public class UsernameInputField : MonoBehaviour
 
     private void UsernameChanged(string newUsername)
     {
-        PlayerPrefs.SetString(DependencyHolder.Singleton.SharedKeys.UsernameSaveKey, newUsername);
+        PlayerPrefs.SetString(MainDependencies.Singleton.SharedKeys.UsernameSaveKey, newUsername);
         PlayerPrefs.Save();
     }
 }

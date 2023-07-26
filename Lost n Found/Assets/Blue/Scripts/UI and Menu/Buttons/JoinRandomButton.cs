@@ -6,7 +6,7 @@ public class JoinRandomButton : BasicButton
 {
     protected override async void OnClick()
     {
-        bool result = await DependencyHolder.Singleton.NetworkHelper.JoinRandom();
+        bool result = await MainDependencies.Singleton.NetworkHelper.JoinRandom();
 
         if (result)
         {

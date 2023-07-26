@@ -32,7 +32,7 @@ public class NetworkHelper : MonoBehaviour
     private void Awake() {
         DontDestroyOnLoad(this);
 
-        DependencyHolder.Singleton.NetworkManager.OnClientConnectedCallback += OnClientConnected;
+        MainDependencies.Singleton.NetworkManager.OnClientConnectedCallback += OnClientConnected;
     }
 
     private void OnClientConnected(ulong id)
@@ -150,14 +150,14 @@ public class NetworkHelper : MonoBehaviour
             return false;
         }
 
-        DependencyHolder.Singleton.UnityTransport.SetClientRelayData(RelayJoinAllocation.RelayServer.IpV4,
+        MainDependencies.Singleton.UnityTransport.SetClientRelayData(RelayJoinAllocation.RelayServer.IpV4,
             (ushort)RelayJoinAllocation.RelayServer.Port,
             RelayJoinAllocation.AllocationIdBytes,
             RelayJoinAllocation.Key,
             RelayJoinAllocation.ConnectionData,
             RelayJoinAllocation.HostConnectionData);
 
-        DependencyHolder.Singleton.SetGameSettings(
+        MainDependencies.Singleton.SetGameSettings(
             new GameSettings(Enum.Parse<GameSettings.DifficultyOptions>(Lobby.Data[difficultyID].Value), 
             int.Parse(Lobby.Data[seedID].Value)));
 
@@ -170,7 +170,7 @@ public class NetworkHelper : MonoBehaviour
 
     public async Task<bool> Host(bool isPrivate)
     {
-        DependencyHolder.Singleton.SetGameSettings(new GameSettings(GameSettings.DifficultyOptions.Normal, UnityEngine.Random.Range(int.MinValue, int.MaxValue)));
+        MainDependencies.Singleton.SetGameSettings(new GameSettings(GameSettings.DifficultyOptions.Normal, UnityEngine.Random.Range(int.MinValue, int.MaxValue)));
         
         Debug.Log("Creating Relay Allocation");
 
@@ -201,8 +201,8 @@ public class NetworkHelper : MonoBehaviour
         CreateLobbyOptions options = new CreateLobbyOptions();
 
         Dictionary<string, DataObject> lobbyOptionsData = new();
-        lobbyOptionsData.Add(difficultyID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Difficulty.ToString()));
-        lobbyOptionsData.Add(seedID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: DependencyHolder.Singleton.GameSettings.Seed.ToString()));
+        lobbyOptionsData.Add(difficultyID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: MainDependencies.Singleton.GameSettings.Difficulty.ToString()));
+        lobbyOptionsData.Add(seedID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: MainDependencies.Singleton.GameSettings.Seed.ToString()));
         lobbyOptionsData.Add(joinCodeID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: joinCode));
         lobbyOptionsData.Add(guidID, new DataObject(visibility: DataObject.VisibilityOptions.Public, value: Guid.NewGuid().ToString()));
         options.Data = lobbyOptionsData;
@@ -222,7 +222,7 @@ public class NetworkHelper : MonoBehaviour
 
         Debug.Log("Lobby Code: " + Lobby.LobbyCode);
 
-        DependencyHolder.Singleton.UnityTransport.SetHostRelayData(RelayAllocation.RelayServer.IpV4, 
+        MainDependencies.Singleton.UnityTransport.SetHostRelayData(RelayAllocation.RelayServer.IpV4, 
             (ushort)RelayAllocation.RelayServer.Port, 
             RelayAllocation.AllocationIdBytes, 
             RelayAllocation.Key, 
@@ -237,7 +237,7 @@ public class NetworkHelper : MonoBehaviour
     }
     private void JoinNewVivoxChannel() 
     {
-        DependencyHolder.Singleton.VivoxManager.JoinChannelWhenReady(Lobby.Data[guidID].Value);
+        MainDependencies.Singleton.VivoxManager.JoinChannelWhenReady(Lobby.Data[guidID].Value);
     }
     IEnumerator LobbyHeartBeat()
     {
