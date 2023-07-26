@@ -1,45 +1,70 @@
+using Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Cinemachine;
 using DG.Tweening;
 
-[RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour, IHeadBobber
+[RequireComponent(typeof(PlayerInputProvider))]
+public class PlayerMovement : NetworkBehaviour
 {
-    [field: SerializeField] public float SprintSpeed {get; private set;}
-    [field: SerializeField] public float SneakSpeed { get; private set; }
-    [field: SerializeField] public float WalkSpeed { get; private set; }
-
-    public float BackwardsSpeedMultiplier = 0.5f;
-    public float SidewaysSpeedMultiplier = 0.8f;
-
-    private CharacterController controller;
-
-    Vector2 inputMovement;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    CharacterController controller;
+    PlayerMovementSettings playerMovementSettings;
+    CinemachinePOV cameraPOV;
+    CinemachineRecomposer cameraRecomposer;
+    CinemachineCameraOffset cameraOffset;
+    PlayerInputProvider playerInputProvider;
+    HeadBobSettings headBobSettings;
     Vector3 gravityMovement;
     Vector3 finalMovement;
-    bool sprint;
-    bool sneak;
+    float oldSpeed = 0;
+    float smoothSpeed = 0;
+    float bobValue = 0;
+    float maxSpeed;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        playerInputProvider = GetComponent<PlayerInputProvider>();
+
+        playerMovementSettings = ScenelessDependencies.Singleton.PlayerMovementSettings;
+
+        cameraPOV = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
+        cameraRecomposer = virtualCamera.GetComponent<CinemachineRecomposer>();
+        cameraOffset = virtualCamera.GetComponent<CinemachineCameraOffset>();
+
+        headBobSettings = ScenelessDependencies.Singleton.HeadBobSettings;
+
+        maxSpeed = ScenelessDependencies.Singleton.PlayerMovementSettings.SprintSpeed;
     }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+        {
+            Destroy(virtualCamera.gameObject);
+            controller.enabled = false;
+            enabled = false;
+        }
+    }
+
     private void Update()
     {
         Move();
+        BobHead();
     }
     private void Move()
     {
-        float playerSpeed = sneak ? SneakSpeed : sprint ? SprintSpeed : WalkSpeed;
+        float playerSpeed = playerInputProvider.sneaking ? playerMovementSettings.SneakSpeed : playerInputProvider.sprinting ? playerMovementSettings.SprintSpeed : playerMovementSettings.WalkSpeed;
 
         Vector2 playerMovement = new Vector2(
-            inputMovement.y < 0 ? inputMovement.y * playerSpeed * BackwardsSpeedMultiplier : playerSpeed * inputMovement.y,
-            playerMovement.x = inputMovement.x * playerSpeed * SidewaysSpeedMultiplier
+            playerInputProvider.inputMovement.y < 0 ? playerInputProvider.inputMovement.y * playerSpeed * playerMovementSettings.BackwardsSpeedMultiplier : playerSpeed * playerInputProvider.inputMovement.y,
+            playerMovement.x = playerInputProvider.inputMovement.x * playerSpeed * playerMovementSettings.SidewaysSpeedMultiplier
         );
 
-        finalMovement = (transform.forward * playerMovement.y) + (transform.right * playerMovement.x);
+        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + cameraPOV.m_HorizontalAxis.Value, transform.rotation.z);
+
+        finalMovement = (transform.forward * playerMovement.x) + (transform.right * playerMovement.y);
 
         if (controller.isGrounded)
         {
@@ -52,28 +77,42 @@ public class PlayerMovement : MonoBehaviour, IHeadBobber
 
         controller.Move((finalMovement + gravityMovement) * Time.deltaTime);
     }
-    public float GetMovementSpeed()
-    {
-        return finalMovement.magnitude;
-    }
-    public float GetMaxMovementSpeed()
-    {
-        return SprintSpeed;
-    }
 
-    #region GetInput
-    public void OnWalk(InputAction.CallbackContext context)
+    private void BobHead()
     {
-        inputMovement = context.ReadValue<Vector2>();
-    }
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        sprint = context.action.IsPressed();
-    }
-    public void OnSneak(InputAction.CallbackContext context)
-    {
-        sneak = context.action.IsPressed();
-    }
+        float speed = finalMovement.magnitude;
 
-    #endregion
+        if (speed != oldSpeed)
+        {
+            DOTween.To(() => smoothSpeed, x => smoothSpeed = x, speed, headBobSettings.BobBlendTime);
+        }
+
+        oldSpeed = speed;
+
+        if (smoothSpeed == 0) return;
+
+        bobValue += headBobSettings.BobSpeed.Evaluate(smoothSpeed / maxSpeed) * Time.deltaTime;
+
+        if (bobValue > 360)
+        {
+            bobValue -= 360;
+        }
+
+        float bobValueSin = Mathf.Sin(bobValue);
+        float bobValueSinSlow = Mathf.Sin(bobValue * 0.5f);
+
+        cameraOffset.m_Offset = new Vector3(BobSlow(headBobSettings.XBobAmount), Bob(headBobSettings.YBobAmount) + headBobSettings.BobHeight.Evaluate(smoothSpeed / maxSpeed), 0);
+        cameraRecomposer.m_Dutch = BobSlow(headBobSettings.DutchBobAmount);
+        cameraRecomposer.m_Pan = BobSlow(headBobSettings.PanBobAmount);
+        cameraRecomposer.m_Tilt = headBobSettings.TiltBobOnSecondFootstep ? BobSlow(headBobSettings.TiltBobAmount) : Bob(headBobSettings.TiltBobAmount);
+
+        float BobSlow(AnimationCurve amp)
+        {
+            return bobValueSinSlow * amp.Evaluate(smoothSpeed / maxSpeed);
+        }
+        float Bob(AnimationCurve amp)
+        {
+            return bobValueSin * amp.Evaluate(smoothSpeed / maxSpeed);
+        }
+    }
 }

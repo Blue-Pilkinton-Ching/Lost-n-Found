@@ -5,10 +5,10 @@ using UnityEngine;
 public class DisplayJoinCode : ButtonBehaviour
 {
     private void OnEnable() {
-        buttonText.text = MainDependencies.Singleton.NetworkHelper.Lobby.LobbyCode;
+        buttonText.text = ScenelessDependencies.Singleton.NetworkHelper.Lobby.LobbyCode;
     }
     protected override void OnClick()
     {
-        GUIUtility.systemCopyBuffer = MainDependencies.Singleton.NetworkHelper.Lobby.LobbyCode;
+        GUIUtility.systemCopyBuffer = ScenelessDependencies.Singleton.NetworkHelper.Lobby.LobbyCode;
     }
 }

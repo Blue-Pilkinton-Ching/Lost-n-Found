@@ -14,13 +14,13 @@ public class LobbyButton : ButtonBehaviour
     protected override void Awake() 
     {
         base.Awake();
-        MainDependencies.Singleton.OnPartnerClientManagerChange += PartnerClientManagerChanged;
+        ScenelessDependencies.Singleton.OnPartnerClientManagerChange += PartnerClientManagerChanged;
     }
     private void PartnerClientManagerChanged() 
     {
-        if (MainDependencies.Singleton.PartnerClientManager != null)
+        if (ScenelessDependencies.Singleton.PartnerClientManager != null)
         {
-            MainDependencies.Singleton.PartnerClientManager.Ready.OnValueChanged += PartnerReadyStatusChanged;
+            ScenelessDependencies.Singleton.PartnerClientManager.Ready.OnValueChanged += PartnerReadyStatusChanged;
         }
     }
     private void PartnerReadyStatusChanged(bool previous, bool current) 
@@ -30,14 +30,14 @@ public class LobbyButton : ButtonBehaviour
 
     private void UpdateButton(bool buttonPressed, bool partnerDisconnected = false) 
     {
-        bool isPartnerReady = MainDependencies.Singleton.PartnerClientManager?.Ready.Value == true && !partnerDisconnected;
+        bool isPartnerReady = ScenelessDependencies.Singleton.PartnerClientManager?.Ready.Value == true && !partnerDisconnected;
 
         if (isPartnerReady && isReady && NetworkManager.Singleton.IsServer)
         {
             if (buttonPressed)
             {
                 ButtonsFrozen = true;
-                MainDependencies.Singleton.GameLoader.StartGame();
+                ScenelessDependencies.Singleton.GameLoader.StartGame();
                 return;
             }
         }
@@ -46,7 +46,7 @@ public class LobbyButton : ButtonBehaviour
             if (buttonPressed)
             {
                 isReady = !isReady;
-                MainDependencies.Singleton.OwnerClientManager.SetReadyStatus(isReady); 
+                ScenelessDependencies.Singleton.OwnerClientManager.SetReadyStatus(isReady); 
             }
         }
 

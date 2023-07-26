@@ -9,7 +9,7 @@ public class HostButton : BasicButton
 
     protected override async void OnClick()
     {
-        bool result = await MainDependencies.Singleton.NetworkHelper.Host(visibilityButton.IsPrivate);
+        bool result = await ScenelessDependencies.Singleton.NetworkHelper.Host(visibilityButton.IsPrivate);
 
         if (result)
         {

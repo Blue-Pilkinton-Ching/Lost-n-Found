@@ -25,7 +25,7 @@ public class PasteCodeButton : BasicButton
         }
         inputField.text = sb.ToString();
 
-        bool result = await MainDependencies.Singleton.NetworkHelper.JoinByCode(inputField.text);
+        bool result = await ScenelessDependencies.Singleton.NetworkHelper.JoinByCode(inputField.text);
 
         if (result)
         {

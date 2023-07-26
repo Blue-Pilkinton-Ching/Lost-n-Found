@@ -22,11 +22,11 @@ public class NextAudioDeviceButton : ButtonBehaviour
         {
             if (isNext)
             {
-                MainDependencies.Singleton.AudioDeviceManager.SetNextMic();
+                ScenelessDependencies.Singleton.AudioDeviceManager.SetNextMic();
             }
             else
             {
-                MainDependencies.Singleton.AudioDeviceManager.SetPrevMic();
+                ScenelessDependencies.Singleton.AudioDeviceManager.SetPrevMic();
             }
         }
     }

@@ -26,7 +26,7 @@ public abstract class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPo
     {
         if (!ButtonsFrozen)
         {
-            button.image.DOColor(MainDependencies.Singleton.ButtonSettings.HoverColor, MainDependencies.Singleton.ButtonSettings.FadeDuration);
+            button.image.DOColor(ScenelessDependencies.Singleton.ButtonSettings.HoverColor, ScenelessDependencies.Singleton.ButtonSettings.FadeDuration);
         }
     }
 
@@ -34,15 +34,15 @@ public abstract class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPo
     {
         if (!ButtonsFrozen)
         {
-            button.image.DOColor(MainDependencies.Singleton.ButtonSettings.ClickColor, MainDependencies.Singleton.ButtonSettings.FadeDuration).OnComplete(() =>
-                button.image.DOColor(MainDependencies.Singleton.ButtonSettings.NormalColor, MainDependencies.Singleton.ButtonSettings.FadeDuration));
+            button.image.DOColor(ScenelessDependencies.Singleton.ButtonSettings.ClickColor, ScenelessDependencies.Singleton.ButtonSettings.FadeDuration).OnComplete(() =>
+                button.image.DOColor(ScenelessDependencies.Singleton.ButtonSettings.NormalColor, ScenelessDependencies.Singleton.ButtonSettings.FadeDuration));
 
             if (shouldFreezeButtons)
             {
                 ButtonsFrozen = true;
             }
 
-            Invoke("OnClick", MainDependencies.Singleton.ButtonSettings.ClickDelay);
+            Invoke("OnClick", ScenelessDependencies.Singleton.ButtonSettings.ClickDelay);
         }
     }
 
@@ -50,7 +50,7 @@ public abstract class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPo
     {
         if (!ButtonsFrozen)
         {
-            button.image.DOColor(MainDependencies.Singleton.ButtonSettings.NormalColor, MainDependencies.Singleton.ButtonSettings.FadeDuration);
+            button.image.DOColor(ScenelessDependencies.Singleton.ButtonSettings.NormalColor, ScenelessDependencies.Singleton.ButtonSettings.FadeDuration);
         }
     }
     

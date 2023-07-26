@@ -24,7 +24,7 @@ public class VivoxManager : MonoBehaviour
     private void Awake() {
         DontDestroyOnLoad(this);
 
-        MainDependencies.Singleton.AudioDeviceManager.OnCurrentMicChanged += OnMicrophoneChanged;
+        ScenelessDependencies.Singleton.AudioDeviceManager.OnCurrentMicChanged += OnMicrophoneChanged;
     }
     public void Initialize() 
     {
@@ -37,17 +37,17 @@ public class VivoxManager : MonoBehaviour
         clientInitialized = true;
 
         accountId = new AccountId(
-            MainDependencies.Singleton.VivoxCredentials.Issuer, 
+            ScenelessDependencies.Singleton.VivoxCredentials.Issuer, 
             AuthenticationService.Instance.Profile, 
-            MainDependencies.Singleton.VivoxCredentials.Domain);
+            ScenelessDependencies.Singleton.VivoxCredentials.Domain);
 
         loginSession = client.GetLoginSession(accountId);
 
         // In a build I have to use something other than loginSession.GetLoginToken()
 
         loginSession.BeginLogin(
-            new Uri(MainDependencies.Singleton.VivoxCredentials.Server), 
-            loginSession.GetLoginToken(MainDependencies.Singleton.VivoxCredentials.TolkenKey, expirationTime), 
+            new Uri(ScenelessDependencies.Singleton.VivoxCredentials.Server), 
+            loginSession.GetLoginToken(ScenelessDependencies.Singleton.VivoxCredentials.TolkenKey, expirationTime), 
             LoginSessionCallback);
 
         loginSession.SetTransmissionMode(TransmissionMode.All);
@@ -81,7 +81,7 @@ public class VivoxManager : MonoBehaviour
         VivoxUnity.IReadOnlyDictionary<string, IAudioDevice> devices = client.AudioInputDevices.AvailableDevices;
 
         client.AudioInputDevices.BeginSetActiveDevice(
-            devices.First(n => n.Name == MainDependencies.Singleton.AudioDeviceManager.CurrentMicName), 
+            devices.First(n => n.Name == ScenelessDependencies.Singleton.AudioDeviceManager.CurrentMicName), 
             callback => MicrophoneChangedCallback(callback));
     }
 
@@ -147,14 +147,14 @@ public class VivoxManager : MonoBehaviour
 
     private void JoinChannel() 
     {
-        channelId = new ChannelId(MainDependencies.Singleton.VivoxCredentials.Issuer, 
-            channelName, MainDependencies.Singleton.VivoxCredentials.Domain,
+        channelId = new ChannelId(ScenelessDependencies.Singleton.VivoxCredentials.Issuer, 
+            channelName, ScenelessDependencies.Singleton.VivoxCredentials.Domain,
             ChannelType.NonPositional);
 
         channelSession = loginSession.GetChannelSession(channelId);
 
         channelSession.BeginConnect(true, false, false, 
-            channelSession.GetConnectToken(MainDependencies.Singleton.VivoxCredentials.TolkenKey, expirationTime), 
+            channelSession.GetConnectToken(ScenelessDependencies.Singleton.VivoxCredentials.TolkenKey, expirationTime), 
             callback => JoinChannelCallback(callback));
 
         channelSession.PropertyChanged += ChannelPropertyChanged;

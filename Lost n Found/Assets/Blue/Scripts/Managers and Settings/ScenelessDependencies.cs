@@ -7,12 +7,12 @@ using TMPro;
 using System;
 using Cinemachine;
 
-public class MainDependencies : MonoBehaviour
+public class ScenelessDependencies : MonoBehaviour
 {
     // Class that holds all Managers and Dependancies for easy accessibility
     // This class should ONLY hold dependencys for other classes, and not contain any functionality
 
-    public static MainDependencies Singleton;
+    public static ScenelessDependencies Singleton;
 
     [field: Header("Managers & Controllers")]
     [field: SerializeField] public NetworkManager NetworkManager { get; private set; }
@@ -34,11 +34,7 @@ public class MainDependencies : MonoBehaviour
     [field: SerializeField] public ButtonSettings ButtonSettings { get; private set; }
     [field: SerializeField] public VivoxCredentials VivoxCredentials { get; private set; }
     [field: SerializeField] public HeadBobSettings HeadBobSettings { get; private set; }
-
-
-    [field: Header("Instantiated Component References")]
-    [field: SerializeField] public TextMeshProUGUI OwnerUsernameText { get; private set; }
-    [field: SerializeField] public TextMeshProUGUI PartnerUsernameText { get; private set; }
+    [field: SerializeField] public PlayerMovementSettings PlayerMovementSettings { get; private set; }
 
     public void Awake()
     {
