@@ -1,0 +1,13 @@
+Entity Intention Value
+
+0 is Idle
+> 0 is looking around
+
+> 0.5 is looking around to walking
+
+> 1 is looking around to sprinting
+
+> 1.5 is face player to sprinting
+
+Optimising shaders and Textures
+https://chat.openai.com/share/ddea7017-d056-424e-932d-6565870dde63
