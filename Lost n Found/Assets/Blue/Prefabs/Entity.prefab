@@ -121,12 +121,13 @@ Transform:
   m_GameObject: {fileID: 391184584763704762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -26.201847, y: 0, z: 62.487995}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1629332274536381938}
+  - {fileID: 5103761297406296119}
+  - {fileID: 3081304443465879475}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4226225776121762972
 MonoBehaviour:
@@ -822,7 +823,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5794244616029950400}
-  - component: {fileID: 781623608601867691}
   m_Layer: 0
   m_Name: mixamorig:Spine
   m_TagString: Untagged
@@ -846,282 +846,6 @@ Transform:
   m_Father: {fileID: 574798507380020972}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &781623608601867691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1793091146709286306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17d77db75be5b64e891e6cd25906ee5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StimulatorAmount: 1
-  Bones:
-  - transform: {fileID: 5794244616029950400}
-    Evaluation: 0
-    initLocalPos: {x: 0, y: 0, z: 0}
-    initLocalRot: {x: 0, y: 0, z: 0, w: 0}
-    initLocalScale: {x: 0, y: 0, z: 0}
-    srcAnimatorLocPosition: {x: 0, y: 0, z: 0}
-    srcAnimatorPosition: {x: 0, y: 0, z: 0}
-    srcAnimatorLocRotation: {x: 0, y: 0, z: 0, w: 0}
-    srcAnimatorRotation: {x: 0, y: 0, z: 0, w: 0}
-    EnableCollisions: 1
-    CollisionRadius: 0.1
-    CollisionHelperVector: {x: 0, y: 0, z: 0}
-    lastFinalLocPosition: {x: 0, y: 0, z: 0}
-    lastFinalLocRotation: {x: 0, y: 0, z: 0, w: 0}
-    MomentDampen: 0
-    PosMul: 1
-    RotMul: 1
-    ScaleMul: 1
-    randomFloats: []
-    randomInts: 
-  - transform: {fileID: 6685017605802657070}
-    Evaluation: 0
-    initLocalPos: {x: 0, y: 0, z: 0}
-    initLocalRot: {x: 0, y: 0, z: 0, w: 0}
-    initLocalScale: {x: 0, y: 0, z: 0}
-    srcAnimatorLocPosition: {x: 0, y: 0, z: 0}
-    srcAnimatorPosition: {x: 0, y: 0, z: 0}
-    srcAnimatorLocRotation: {x: 0, y: 0, z: 0, w: 0}
-    srcAnimatorRotation: {x: 0, y: 0, z: 0, w: 0}
-    EnableCollisions: 1
-    CollisionRadius: 0.1
-    CollisionHelperVector: {x: 0, y: 0, z: 0}
-    lastFinalLocPosition: {x: 0, y: 0, z: 0}
-    lastFinalLocRotation: {x: 0, y: 0, z: 0, w: 0}
-    MomentDampen: 0
-    PosMul: 1
-    RotMul: 1
-    ScaleMul: 1
-    randomFloats: []
-    randomInts: 
-  - transform: {fileID: 1788139678773975744}
-    Evaluation: 0
-    initLocalPos: {x: 0, y: 0, z: 0}
-    initLocalRot: {x: 0, y: 0, z: 0, w: 0}
-    initLocalScale: {x: 0, y: 0, z: 0}
-    srcAnimatorLocPosition: {x: 0, y: 0, z: 0}
-    srcAnimatorPosition: {x: 0, y: 0, z: 0}
-    srcAnimatorLocRotation: {x: 0, y: 0, z: 0, w: 0}
-    srcAnimatorRotation: {x: 0, y: 0, z: 0, w: 0}
-    EnableCollisions: 1
-    CollisionRadius: 0.1
-    CollisionHelperVector: {x: 0, y: 0, z: 0}
-    lastFinalLocPosition: {x: 0, y: 0, z: 0}
-    lastFinalLocRotation: {x: 0, y: 0, z: 0, w: 0}
-    MomentDampen: 0
-    PosMul: 1
-    RotMul: 1
-    ScaleMul: 1
-    randomFloats: []
-    randomInts: 
-  CompensationTransform: {fileID: 0}
-  AnimatePhysics: 0
-  UnscaledDelta: 0
-  HideWith: {fileID: 0}
-  FadeOutDistance: 0
-  DistanceFrom: {fileID: 0}
-  AutoHelperOffset: 1
-  HelperOffset: {x: 0, y: 0.0070099826, z: -0.0008014371}
-  GravityEffectForce: {x: 0, y: 0, z: 0}
-  GravityHeavyness: 2
-  _editor_Title: ' Bones Stimulator'
-  _editor_DrawSetup: 1
-  _editor_DrawTweaking: 0
-  _editor_DisplayedPreset: 0
-  _editor_DrawGizmos: 1
-  DrawGizmos: 1
-  _editor_SelCategory: 0
-  UpdateRate: 0
-  MovementMuscles: 0.05
-  MusclesRapidity: 0.6
-  Damping: 0.1
-  Smoothing: 0.4
-  MildRotation: 0
-  MotionInfluence: 1
-  RotationSpaceMuscles: 0.25
-  UseEulerRotation: 0
-  EnsureRotation: 0
-  RotationsRapidity: 0.7
-  RotationsDamping: 0.25
-  RotationsSwinginess: 0.6
-  MusclesBlend:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  MusclesSimulationSpeed: 1
-  VibrateAmount: 0
-  VibrateSpeed: 6
-  VibrateRange: 2.5
-  VibrateAxis: {x: 1, y: 1, z: 1}
-  VibrateRotation: 1
-  UniRotation: 0
-  VibratePosition: 0
-  VibrateScale: 0
-  DetailedVibrate: 1
-  VibratePosBlend:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  VibrateRotBlend:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  VibrateScaleBlend:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  SqueezingAmount: 0
-  SqueezingSpeed: 15
-  SqueezingMultiply: 0.5
-  SqueezingAxis: {x: 0.2, y: 0.15, z: 0.2}
-  UseCollisions: 0
-  MovementMusclesCollision: 1
-  CollidersScaleCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  CollidersScaleMul: 0.1
-  OffsetAllColliders: {x: 0, y: 0, z: 0}
-  DetailedCollision: 1
-  IncludedColliders: []
-  BlendXAxis: 1
-  BlendYAxis: 1
-  BlendZAxis: 1
-  LimitXAxisRotation: {x: -180, y: 180}
-  LimitYAxisRotation: {x: -180, y: 180}
-  LimitZAxisRotation: {x: -180, y: 180}
-  ElasticLimits: 0
-  ElasticLimitCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  DampenOnLimits: 0
 --- !u!1 &1812478550076591816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,7 +1462,7 @@ MonoBehaviour:
   FadeOutDistance: 0
   DistanceFrom: {fileID: 0}
   AutoHelperOffset: 1
-  HelperOffset: {x: -0.0013902924, y: 0.016529284, z: -0.006262775}
+  HelperOffset: {x: -0.0013902902, y: 0.016529286, z: -0.006262774}
   GravityEffectForce: {x: 0, y: 0, z: 0}
   GravityHeavyness: 2
   _editor_Title: ' Bones Stimulator'
@@ -3819,7 +3543,7 @@ MonoBehaviour:
   FadeOutDistance: 0
   DistanceFrom: {fileID: 0}
   AutoHelperOffset: 1
-  HelperOffset: {x: -0.0005868298, y: 0.0033373851, z: -0.023348713}
+  HelperOffset: {x: -0.0005868272, y: 0.0033373963, z: -0.023348711}
   GravityEffectForce: {x: 0, y: 0, z: 0}
   GravityHeavyness: 2
   _editor_Title: ' Bones Stimulator'
@@ -4163,6 +3887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629332274536381938}
   - component: {fileID: 997418832252380435}
+  - component: {fileID: 230595789213179490}
   m_Layer: 0
   m_Name: Entity Mesh
   m_TagString: Untagged
@@ -4177,17 +3902,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6544349519699963001}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2316329345134039741}
   - {fileID: 9000642584480978253}
   - {fileID: 6707295702564476221}
   - {fileID: 389574787760168341}
   - {fileID: 4585252442772949028}
-  m_Father: {fileID: 8721070336695433121}
+  m_Father: {fileID: 5103761297406296119}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &997418832252380435
@@ -4211,6 +3936,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &230595789213179490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6544349519699963001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: -1860736291
+    TransitionDuration: 0.25
+    TriggerNameHash: -1860736291
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: -399748991
+    TransitionDuration: 0.25
+    TriggerNameHash: -399748991
+    TransitionIndex: 1
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -399748991
+    DestinationState: -1860736291
+    TransitionDuration: 0.1
+    TriggerNameHash: -1860736291
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -1860736291
+    DestinationState: -399748991
+    TransitionDuration: 0.25
+    TriggerNameHash: -399748991
+    TransitionIndex: 0
+  m_Animator: {fileID: 997418832252380435}
 --- !u!1 &6699511370612199215
 GameObject:
   m_ObjectHideFlags: 0
@@ -4636,6 +4403,37 @@ Transform:
   m_Father: {fileID: 442744158790301946}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8061532193200476272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3081304443465879475}
+  m_Layer: 0
+  m_Name: NavMeshAgent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3081304443465879475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8061532193200476272}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8721070336695433121}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8128104711321245349
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,6 +4560,77 @@ Transform:
   m_Father: {fileID: 7588937550617859181}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8595347092564107935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5103761297406296119}
+  - component: {fileID: 4497236088459566675}
+  - component: {fileID: 1383282817070040428}
+  m_Layer: 0
+  m_Name: NavMeshAgent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5103761297406296119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8595347092564107935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1629332274536381938}
+  m_Father: {fileID: 8721070336695433121}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &4497236088459566675
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8595347092564107935}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
+--- !u!114 &1383282817070040428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8595347092564107935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae07fe161c6b3a44c8e1b9b349181b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {fileID: 0}
+  stoppingVelocity: 0.1
+  animator: {fileID: 997418832252380435}
 --- !u!1 &8636300447139787509
 GameObject:
   m_ObjectHideFlags: 0
