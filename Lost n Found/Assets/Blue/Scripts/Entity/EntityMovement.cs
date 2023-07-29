@@ -11,7 +11,6 @@ public class EntityMovement : NetworkBehaviour
     public Transform destination;
     public EntityAnimationState EntityAnimationState {get; private set;}
     private EntityAnimationState oldEntityAnimationState;
-    [SerializeField] private float stoppingVelocity = 0.1f;
     [SerializeField] private Animator animator;
     NavMeshAgent agent;
     int variationKey;
@@ -31,9 +30,9 @@ public class EntityMovement : NetworkBehaviour
         sprintKey = Animator.StringToHash("Sprint");
         lookAroundKey = Animator.StringToHash("Look Around");
     }
-    // Update is called once per frame
-
-    private void Start() {    
+    public void AlertEntity(EntityAlert alert)
+    {
+        
     }
     void Update()
     {
@@ -43,31 +42,29 @@ public class EntityMovement : NetworkBehaviour
 
     private void Animate()
     {
+        animator.ResetTrigger(lookRightKey);
+        animator.ResetTrigger(lookLeftKey);
+        animator.ResetTrigger(walkKey);
+        animator.ResetTrigger(sprintKey);
+        animator.ResetTrigger(lookAroundKey);
+
         animator.SetFloat(variationKey, (Mathf.Sin(Time.time) * 0.5f) + 0.5f);
 
-        if (agent.velocity.sqrMagnitude > stoppingVelocity)
+        animator.speed = 1;
+
+        float velocity = agent.velocity.magnitude;
+
+        if (velocity > 0)
         {
             EntityAnimationState = EntityAnimationState.Sprinting;
+            animator.SetTrigger(sprintKey);
+
+            animator.speed = velocity / agent.speed;
         }
         else
         {
             EntityAnimationState = EntityAnimationState.Idle;
+            animator.SetTrigger(lookAroundKey);
         }
-
-        if (EntityAnimationState != oldEntityAnimationState)
-        {
-            switch (EntityAnimationState)
-            {
-                case EntityAnimationState.Sprinting:
-                    animator.SetTrigger(sprintKey);
-                    break;
-                case EntityAnimationState.Idle:
-                    animator.SetTrigger(lookAroundKey);
-                    break;
-            }
-
-        }
-
-        oldEntityAnimationState = EntityAnimationState;
     }
 }
