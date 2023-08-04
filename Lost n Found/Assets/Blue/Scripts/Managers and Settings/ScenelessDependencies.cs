@@ -35,6 +35,7 @@ public class ScenelessDependencies : MonoBehaviour
     [field: SerializeField] public VivoxCredentials VivoxCredentials { get; private set; }
     [field: SerializeField] public HeadBobSettings HeadBobSettings { get; private set; }
     [field: SerializeField] public PlayerMovementSettings PlayerMovementSettings { get; private set; }
+    [field: SerializeField] public EntityMovementSettings EntityMovementSettings { get; private set; }
 
     public void Awake()
     {

@@ -9,8 +9,6 @@ using System;
 public class EntityMovement : NetworkBehaviour
 {
     public Transform destination;
-    public EntityAnimationState EntityAnimationState {get; private set;}
-    private EntityAnimationState oldEntityAnimationState;
     [SerializeField] private Animator animator;
     NavMeshAgent agent;
     int variationKey;
@@ -30,11 +28,7 @@ public class EntityMovement : NetworkBehaviour
         sprintKey = Animator.StringToHash("Sprint");
         lookAroundKey = Animator.StringToHash("Look Around");
     }
-    public void AlertEntity(EntityAlert alert)
-    {
-        
-    }
-    void Update()
+    private void Update()
     {
         agent.destination = destination.position;
         Animate();
@@ -56,14 +50,12 @@ public class EntityMovement : NetworkBehaviour
 
         if (velocity > 0)
         {
-            EntityAnimationState = EntityAnimationState.Sprinting;
             animator.SetTrigger(sprintKey);
 
             animator.speed = velocity / agent.speed;
         }
         else
         {
-            EntityAnimationState = EntityAnimationState.Idle;
             animator.SetTrigger(lookAroundKey);
         }
     }
