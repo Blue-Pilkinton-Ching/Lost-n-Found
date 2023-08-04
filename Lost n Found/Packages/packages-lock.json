@@ -38,7 +38,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "2.0.5",
+      "version": "2.0.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -92,7 +92,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.18",
+      "version": "2.0.20",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -124,7 +124,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.netcode.gameobjects": {
-      "version": "1.5.1",
+      "version": "1.5.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -184,7 +184,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.authentication": {
-      "version": "2.6.1",
+      "version": "2.7.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -350,13 +350,6 @@
         "com.unity.shadergraph": "14.0.8",
         "com.unity.render-pipelines.core": "14.0.8"
       }
-    },
-    "com.veriorpies.parrelsync": {
-      "version": "https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "141b4e1e31966242a6fb7c495b52ac3d1221bc75"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
